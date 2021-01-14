@@ -1,1 +1,1 @@
-web: gunicorn hellodevdennis.wsgi --log-file -
+web: gunicorn trialproject.wsgi --log-file -
