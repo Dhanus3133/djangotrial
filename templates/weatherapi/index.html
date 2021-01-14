@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}
+    {% if postmethod %}
+        Search results for {{ city }}
+    {% else %}
+        Welcome
+    {% endif %}
+{% endblock %}
+{% block content %}
+    <style>
+        .searchbar {
+            text-align: center;
+            font-size: 2em;
+            padding-top: 2rem;
+        }
+        h3, h5 {
+            text-align: center;
+            font-size: 1.5em;
+        }
+
+    </style>
+
+    {% if postmethod %}
+        <h3>Search results for {{ city }}</h3>
+    {% endif %}
+
+    <div class="searchbar">
+        <form method="post">
+            {% csrf_token %}
+{#            <input type="text" name="city" placeholder="Search for City"/>#}
+            <input type="text" name="city" list="cities" placeholder="Search for City"/>
+            <datalist id="cities">
+                {% for city in cities %}
+                    <option value="{{ city }}"></option>
+                {% endfor %}
+            </datalist>
+
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    {% if postmethod %}
+        <div class="results">
+            <h5>City : {{ city }}</h5>
+            <h5>Celsius : {{ celsius }}&#176;C</h5>
+            <h5>Kelvin : {{ kelvin }}&#176;K</h5>
+        </div>
+    {% endif %}
+{% endblock %}
